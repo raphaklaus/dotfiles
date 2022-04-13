@@ -1,5 +1,11 @@
 call plug#begin()
+Plug 'vim-test/vim-test'
+Plug 'sotte/presenting.vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'honza/vim-snippets'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'azabiong/vim-highlighter'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'airblade/vim-gitgutter'
@@ -11,11 +17,14 @@ Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-mix-format'
-Plug 'vim-test/vim-test'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-live-grep-raw.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'EdenEast/nightfox.nvim'
 call plug#end()
 
 " Indention Options
@@ -72,18 +81,32 @@ set history=1000
 set nomodeline
 set spell
 
-nnoremap <C-p> :Files<CR>
+" Relative number
+set number relativenumber
+set nu rnu
 
-nnoremap <silent> <leader>t :TestNearest<CR>
-nnoremap <silent> <leader>T :TestFile<CR>
+" Map jj to ESC
+imap jj <ESC>
+
+" nnoremap <C-p> :Files<CR>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+" nnoremap <leader>ff <C-p> :Files<CR>
+nnoremap <leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+nnoremap <silent> <leader>tt :TestNearest<CR>
+nnoremap <silent> <leader>TT :TestFile<CR>
 nnoremap <silent> <leader>a :TestSuite<CR>
 nnoremap <silent> <leader>l :TestLast<CR>
 nnoremap <silent> <leader>g :TestVisit<CR>
 
-nnoremap <leader>n :NERDTreeFocus<CR>
+"nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+nnoremap <leader>n :NERDTreeFind<CR>
 
 let g:mix_format_on_save = 1
 let test#strategy = "neovim"
@@ -96,7 +119,8 @@ nmap <silent> gr <Plug>(coc-references)
 syntax on
 set t_Co=256
 set cursorline
-colorscheme onehalfdark
+" colorscheme onehalfdark
+colorscheme nightfox
 let g:airline_theme='onehalfdark'
 " lightline
 
@@ -115,3 +139,21 @@ let g:lightline = {
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+let HiSet   = 'f<CR>'       " normal, visual
+let HiErase = 'f<BS>'       " normal, visual
+let HiClear = 'f<C-L>'      " normal
+let HiFind  = 'f<Tab>'      " normal, visual
+
+nmap <Leader><Leader> <Plug>BookmarkToggle
+nmap <Leader>i <Plug>BookmarkAnnotate
+nmap <Leader>s <Plug>BookmarkShowAll
+nmap <Leader>] <Plug>BookmarkNext
+nmap <Leader>[ <Plug>BookmarkPrev
+nmap <Leader>c <Plug>BookmarkClear
+nmap <Leader>x <Plug>BookmarkClearAll
+nmap <Leader>kk <Plug>BookmarkMoveUp
+nmap <Leader>jj <Plug>BookmarkMoveDown
+nmap <Leader>g <Plug>BookmarkMoveToLine
+
+let g:NERDTreeWinSize=30
