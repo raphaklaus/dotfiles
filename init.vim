@@ -25,6 +25,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-live-grep-raw.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'EdenEast/nightfox.nvim'
+Plug 'Rigellute/shades-of-purple.vim'
+Plug 'jpalardy/vim-slime'
+Plug 'nicwest/vim-http'
 call plug#end()
 
 " Indention Options
@@ -85,6 +88,10 @@ set spell
 set number relativenumber
 set nu rnu
 
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 " Map jj to ESC
 imap jj <ESC>
 
@@ -120,12 +127,15 @@ syntax on
 set t_Co=256
 set cursorline
 " colorscheme onehalfdark
-colorscheme nightfox
-let g:airline_theme='onehalfdark'
-" lightline
+" colorscheme nightfox
+colorscheme shades_of_purple
 
+let g:shades_of_purple_airline = 1
+let g:airline_theme='shades_of_purple'
+
+" lightline
 let g:lightline = {
-      \ 'colorscheme': 'onehalfdark',
+      \ 'colorscheme': 'shades_of_purple',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -135,6 +145,8 @@ let g:lightline = {
       \ },
       \ }
 
+" Fugitive
+" autocmd User fugitive command! -bar -buffer -nargs=* Gst :Git status <args>
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -157,3 +169,11 @@ nmap <Leader>jj <Plug>BookmarkMoveDown
 nmap <Leader>g <Plug>BookmarkMoveToLine
 
 let g:NERDTreeWinSize=30
+
+" Slime config
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_default_config = {"socket_name": "default", "target_pane": ":0.1"}
+
+" Enable exit from terminal mode
+:tnoremap jj <C-\><C-n>
