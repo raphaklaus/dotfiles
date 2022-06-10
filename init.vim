@@ -1,4 +1,14 @@
 call plug#begin()
+Plug 'terryma/vim-multiple-cursors'
+Plug 'voldikss/vim-floaterm'
+Plug 'kdheepak/lazygit.nvim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-endwise'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'rhysd/devdocs.vim'
+Plug 'preservim/tagbar'
 Plug 'vim-test/vim-test'
 Plug 'sotte/presenting.vim'
 Plug 'tpope/vim-commentary'
@@ -16,7 +26,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
-Plug 'mhinz/vim-mix-format'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -49,10 +58,11 @@ set smartcase
 
 " Text Rendering Options
 set display+=lastline
-set encoding=utf-8
 set linebreak
 syntax enable
 set wrap
+set encoding=utf-8
+set fileencoding=utf-8
 
 " User Interface Options
 set laststatus=2
@@ -71,7 +81,7 @@ set title
 set clipboard=unnamed,unnamedplus
 
 " Code Folding Options
-set foldmethod=indent
+set foldmethod=syntax
 set foldnestmax=3
 set nofoldenable
 
@@ -100,7 +110,7 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 " nnoremap <leader>ff <C-p> :Files<CR>
 nnoremap <leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 nnoremap <silent> <leader>tt :TestNearest<CR>
 nnoremap <silent> <leader>TT :TestFile<CR>
@@ -108,14 +118,17 @@ nnoremap <silent> <leader>a :TestSuite<CR>
 nnoremap <silent> <leader>l :TestLast<CR>
 nnoremap <silent> <leader>g :TestVisit<CR>
 
+" NERDTree mappings
 "nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-\> :NERDTree<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
-nnoremap <leader>n :NERDTreeFind<CR>
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
-let g:mix_format_on_save = 1
+" let g:mix_format_on_save = 0
 let test#strategy = "neovim"
 
 " Mapping jump to declaration and reference for coc-elixir
@@ -176,4 +189,76 @@ let g:slime_paste_file = "$HOME/.slime_paste"
 let g:slime_default_config = {"socket_name": "default", "target_pane": ":0.1"}
 
 " Enable exit from terminal mode
-:tnoremap jj <C-\><C-n>
+" :tnoremap jj <C-\><C-n>
+
+" Tagbar mapping
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_type_elixir = {
+    \ 'ctagstype' : 'elixir',
+    \ 'kinds' : [
+        \ 'p:protocols',
+        \ 'm:modules',
+        \ 'e:exceptions',
+        \ 'y:types',
+        \ 'd:delegates',
+        \ 'f:functions',
+        \ 'c:callbacks',
+        \ 'a:macros',
+        \ 't:tests',
+        \ 'i:implementations',
+        \ 'o:operators',
+        \ 'r:records'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 'p' : 'protocol',
+        \ 'm' : 'module'
+    \ },
+    \ 'scope2kind' : {
+        \ 'protocol' : 'p',
+        \ 'module' : 'm'
+    \ },
+    \ 'sort' : 0
+\ }
+
+" DevDocs quick search
+nmap K <Plug>(devdocs-under-cursor)
+
+" Sideways mappings
+nmap <;  :SidewaysLeft<cr>
+nmap >;  :SidewaysRight<cr>
+omap aa <Plug>SidewaysArgumentTextobjA
+xmap aa <Plug>SidewaysArgumentTextobjA
+omap ia <Plug>SidewaysArgumentTextobjI
+xmap ia <Plug>SidewaysArgumentTextobjI
+nmap <leader>si <Plug>SidewaysArgumentInsertBefore
+nmap <leader>sa <Plug>SidewaysArgumentAppendAfter
+nmap <leader>sI <Plug>SidewaysArgumentInsertFirst
+nmap <leader>sA <Plug>SidewaysArgumentAppendLast
+
+" Lazygit.vim mappings
+nnoremap <silent> <leader>gg :FloatermNew --height=0.9 --width=0.9 lazygit<CR>
+
+" Float term mappings
+nnoremap   <silent>   <F7>    :FloatermNew<CR>
+" let g:floaterm_keymap_prev   = '<F8>'
+" let g:floaterm_keymap_next   = '<F9>'
+" let g:floaterm_keymap_toggle = '<F12>'
+
+" Multi-cursor mappings
+let g:multi_cursor_use_default_mapping=0
+
+let g:multi_cursor_start_word_key      = '<C-m>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-m>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+" NVR setup
+" let g:lazygit_use_neovim_remote = 1
+" if has('nvim') && executable('nvr')
+"   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+" endif
