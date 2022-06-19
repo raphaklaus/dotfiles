@@ -1,4 +1,8 @@
 call plug#begin()
+Plug 'ckarnell/Antonys-macro-repeater'
+Plug 'machakann/vim-textobj-functioncall' 
+Plug 'jiangmiao/auto-pairs'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'voldikss/vim-floaterm'
 Plug 'kdheepak/lazygit.nvim'
@@ -129,7 +133,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 "     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " let g:mix_format_on_save = 0
-let test#strategy = "neovim"
+let test#strategy = 'neovim'
 
 " Mapping jump to declaration and reference for coc-elixir
 nmap <silent> gd <Plug>(coc-definition)
