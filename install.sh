@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Build essentials
+sudo apt update -y
+sudo apt install build-essential -y
+sudo apt install libssl-dev automake autoconf libncurses5-dev unzip -y
+
 # Zsh and Oh-My-Zsh
 sudo apt-get install zsh -y
 chsh -s $(which zsh)
@@ -7,24 +12,28 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
-asdf plugin install nodejs latest
-asdf plugin install elixir latest
-asdf plugin install erlang latest
-asdf plugin install golang latest
-asdf plugin install rust latest
-asdf plugin install lazygit latest
+asdf plugin add nodejs 
+asdf plugin add elixir 
+asdf plugin add erlang 
+asdf plugin add golang 
+asdf plugin add rust 
+asdf plugin add lazygit 
 
 # asdf install my favorite languages and tools
 
-asdf install nodejs latest
+asdf install nodejs latest:16
 asdf install elixir latest
 asdf install erlang latest
-asdf plugin install rust latest
-asdf plugin install lazygit latest
+asdf install rust latest
+asdf install lazygit latest
+
+npm install -g yarn
 
 # NeoVim
 
-asdf plugin install neovim latest
+sudo apt install vim
+asdf plugin add neovim 
+asdf install neovim latest
 mkdir -p ~/.config/nvim
 
 # Vim Plug
