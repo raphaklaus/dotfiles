@@ -32,6 +32,7 @@ npm install -g yarn
 
 # NeoVim
 
+sudo apt install xclip
 sudo apt install vim
 asdf plugin add neovim 
 asdf install neovim latest
