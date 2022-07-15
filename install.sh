@@ -25,6 +25,7 @@ asdf install nodejs latest:16
 asdf install elixir latest
 asdf install erlang latest
 asdf install rust latest
+asdf install golang latest
 asdf install lazygit latest
 
 npm install -g yarn
