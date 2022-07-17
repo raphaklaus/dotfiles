@@ -1,5 +1,7 @@
 call plug#begin()
 Plug 'hashivim/vim-terraform'
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+Plug 'rust-lang/rust.vim'
 Plug 'ckarnell/Antonys-macro-repeater'
 Plug 'machakann/vim-textobj-functioncall' 
 Plug 'jiangmiao/auto-pairs'
@@ -47,6 +49,7 @@ call plug#end()
 " Indention Options
 set autoindent
 filetype plugin on
+filetype plugin indent on
 filetype indent off
 set smartindent
 set expandtab
@@ -103,8 +106,10 @@ set spell
 set number relativenumber
 set nu rnu
 
-if (has("termguicolors"))
- set termguicolors
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
 " Map jj to ESC
@@ -147,10 +152,12 @@ set t_Co=256
 set cursorline
 " colorscheme onehalfdark
 " colorscheme nightfox
-colorscheme shades_of_purple
+" colorscheme shades_of_purple
+colorscheme spaceduck
 
-let g:shades_of_purple_airline = 1
-let g:airline_theme='shades_of_purple'
+" let g:shades_of_purple_airline = 1
+" let g:airline_theme='shades_of_purple'
+let g:airline_theme='spaceduck'
 
 " lightline
 let g:lightline = {
@@ -263,3 +270,9 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
+" Edit vimrc configuration file
+nnoremap <Leader>ve :e $MYVIMRC<CR>
+" Reload vimrc configuration file
+nnoremap <Leader>vr :source $MYVIMRC<CR>
+" Install Vim plugins
+nnoremap <Leader>ii :PlugInstall<CR>
