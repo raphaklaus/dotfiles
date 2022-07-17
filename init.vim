@@ -1,4 +1,5 @@
 call plug#begin()
+Plug 'hashivim/vim-terraform'
 Plug 'ckarnell/Antonys-macro-repeater'
 Plug 'machakann/vim-textobj-functioncall' 
 Plug 'jiangmiao/auto-pairs'
@@ -112,7 +113,8 @@ imap jj <ESC>
 " nnoremap <C-p> :Files<CR>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 " nnoremap <leader>ff <C-p> :Files<CR>
-nnoremap <leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
+nnoremap <leader>fg <cmd>lua require("telescope.builtin").live_grep()<cr>
+nnoremap <leader>fe <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
@@ -261,8 +263,3 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-" NVR setup
-" let g:lazygit_use_neovim_remote = 1
-" if has('nvim') && executable('nvr')
-"   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
-" endif
