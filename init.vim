@@ -1,5 +1,8 @@
 call plug#begin()
-Plug 'hashivim/vim-terraform'
+Plug 'c-brenn/fuzzy-projectionist.vim'
+Plug 'andyl/vim-projectionist-elixir'
+Plug 'tpope/vim-projectionist'
+Plug 'fcpg/vim-farout'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 Plug 'rust-lang/rust.vim'
 Plug 'ckarnell/Antonys-macro-repeater'
@@ -118,8 +121,7 @@ imap jj <ESC>
 " nnoremap <C-p> :Files<CR>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 " nnoremap <leader>ff <C-p> :Files<CR>
-nnoremap <leader>fg <cmd>lua require("telescope.builtin").live_grep()<cr>
-nnoremap <leader>fe <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
+nnoremap <leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
@@ -154,6 +156,7 @@ set cursorline
 " colorscheme nightfox
 " colorscheme shades_of_purple
 colorscheme spaceduck
+" colorscheme farout
 
 " let g:shades_of_purple_airline = 1
 " let g:airline_theme='shades_of_purple'
@@ -269,6 +272,12 @@ let g:multi_cursor_next_key            = '<C-m>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+
+" NVR setup
+" let g:lazygit_use_neovim_remote = 1
+" if has('nvim') && executable('nvr')
+"   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+" endif
 
 " Edit vimrc configuration file
 nnoremap <Leader>ve :e $MYVIMRC<CR>
