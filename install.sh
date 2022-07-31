@@ -2,8 +2,9 @@
 
 # Build essentials
 sudo apt update -y
-sudo apt install build-essential -y
-sudo apt install libssl-dev automake autoconf libncurses5-dev unzip -y
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev -y
 
 # Zsh and Oh-My-Zsh
 sudo apt-get install zsh -y
