@@ -1,4 +1,7 @@
 call plug#begin()
+Plug 'jiangmiao/auto-pairs'
+Plug 'diepm/vim-rest-console'
+Plug 'dense-analysis/ale'
 Plug 'c-brenn/fuzzy-projectionist.vim'
 Plug 'andyl/vim-projectionist-elixir'
 Plug 'tpope/vim-projectionist'
@@ -7,7 +10,6 @@ Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 Plug 'rust-lang/rust.vim'
 Plug 'ckarnell/Antonys-macro-repeater'
 Plug 'machakann/vim-textobj-functioncall' 
-Plug 'jiangmiao/auto-pairs'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'voldikss/vim-floaterm'
@@ -60,6 +62,7 @@ set shiftround
 set shiftwidth=2
 set smarttab
 set tabstop=2
+set cindent
 
 " Search Options
 set hlsearch
@@ -174,10 +177,8 @@ let g:lightline = {
       \ },
       \ }
 
-" Fugitive
-" autocmd User fugitive command! -bar -buffer -nargs=* Gst :Git status <args>
-
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+" inoremap <silent><expr> <CR> pumvisible() ? "\<C-y><CR>" : "\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -264,11 +265,11 @@ nnoremap   <silent>   <F7>    :FloatermNew<CR>
 " Multi-cursor mappings
 let g:multi_cursor_use_default_mapping=0
 
-let g:multi_cursor_start_word_key      = ',m'
+let g:multi_cursor_start_word_key      = '<C-m>'
 let g:multi_cursor_select_all_word_key = '<A-n>'
 let g:multi_cursor_start_key           = 'g<C-n>'
 let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_next_key            = '<C-m>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
