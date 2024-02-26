@@ -1,6 +1,0 @@
-vim.keymap.set('n', 'ga<', '<cmd>SidewaysLeft<cr>')
-vim.keymap.set('n', 'ga>', '<cmd>SidewaysRight<cr>')
-vim.keymap.set('o', 'aa', '<plug>SidewaysArgumentTextobjA', { remap = true })
-vim.keymap.set('x', 'aa', '<plug>SidewaysArgumentTextobjA', { remap = true })
-vim.keymap.set('o', 'ia', '<plug>SidewaysArgumentTextobjI', { remap = true })
-vim.keymap.set('x', 'ia', '<plug>SidewaysArgumentTextobjI', { remap = true })
