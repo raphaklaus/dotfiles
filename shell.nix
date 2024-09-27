@@ -14,14 +14,23 @@ pkgs.mkShell {
 
     # Utils
     tmux
+    fira-code-symbols
+    nerdfonts
+    lazygit
+    jq
 
     # Node.js (includes npm)
     nodejs_18
+
+    # LLMs and chat services
+    aider-chat
+    ollama
 
     # Database
     postgresql
 
     # Docker
+    colima
     docker
     docker-compose
 
