@@ -1,8 +1,0 @@
-elixir 1.13.4-otp-25
-erlang 25.0.2
-python 2.7.15
-nodejs 18.6.0
-rust 1.62.0
-golang 1.18.4
-lazygit 0.34
-neovim 0.7.2
