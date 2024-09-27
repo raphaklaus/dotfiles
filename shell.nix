@@ -4,6 +4,7 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     # Shells
     zsh
+    oh-my-zsh
 
     # Editors
     vim
@@ -42,5 +43,6 @@ pkgs.mkShell {
     export SHELL=${pkgs.zsh}/bin/zsh
     # Set up Node.js environment
     echo "Development environment loaded!"
+    zsh
   '';
 }
